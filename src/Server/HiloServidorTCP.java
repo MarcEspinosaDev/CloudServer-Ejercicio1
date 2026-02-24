@@ -28,14 +28,14 @@ public class HiloServidorTCP extends Thread {
     }
 
     public void run() {
-        ServidorTCP.mensaje.setText("NUMERO DE CONEXIONES ACTUALES: "
+        System.out.println("NUMERO DE CONEXIONES ACTUALES: "
                 + ServidorTCP.ACTUALES);
         try{
             fsalida.writeUTF("¡Bienvenido al juego Adivina el Número!");
             fsalida.writeUTF("Adivina un número entre 1 y 100");
 
             // Log en el servidor
-            ServidorTCP.textarea.append("[" + direccionCliente +
+            System.out.println("[" + direccionCliente +
                     "] Nueva partida iniciada. Número secreto: " + numeroSecreto + "\n");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -47,14 +47,13 @@ public class HiloServidorTCP extends Thread {
 
                 if (cadena.trim().equals("*")) {
                     ServidorTCP.ACTUALES--;
-                    ServidorTCP.mensaje
-                            .setText("NUMERO DE CONEXIONES ACTUALES: "
+                    System.out.println("NUMERO DE CONEXIONES ACTUALES: "
                                     + ServidorTCP.ACTUALES);
                     break;
                 }
                 if (!procesarIntento(cadena)) {
                     ServidorTCP.ACTUALES--;
-                    ServidorTCP.mensaje.setText("NUMERO DE CONEXIONES ACTUALES: " + ServidorTCP.ACTUALES);
+                    System.out.println("NUMERO DE CONEXIONES ACTUALES: " + ServidorTCP.ACTUALES);
                     break;
                 }
             } catch (Exception e) {
@@ -68,7 +67,7 @@ public class HiloServidorTCP extends Thread {
         try{
             int intento = Integer.parseInt(cadena.trim());
 
-            ServidorTCP.textarea.append("[" + direccionCliente + "] Intento: " + intento + "\n");
+            System.out.println("[" + direccionCliente + "] Intento: " + intento + "\n");
 
             if (intento < numeroSecreto) {
                 fsalida.writeUTF("El número es mayor");
@@ -80,7 +79,7 @@ public class HiloServidorTCP extends Thread {
                 String respuesta = fentrada.readUTF().trim().toLowerCase();
                 if (respuesta.equals("si")) {
                     numeroSecreto = random.nextInt(100) + 1;
-                    ServidorTCP.textarea.append("Nuevo número secreto: " + numeroSecreto + "\n");
+                    System.out.println("Nuevo número secreto: " + numeroSecreto + "\n");
                     fsalida.writeUTF("Adivina un número entre 1 y 100");
                 } else {
                     fsalida.writeUTF("¡Gracias por jugar!");
@@ -91,7 +90,7 @@ public class HiloServidorTCP extends Thread {
         } catch (NumberFormatException e){
             try{
                 fsalida.writeUTF("Por favor, introduce un número válido entre 1 y 100");
-                ServidorTCP.textarea.append(" → Entrada no válida\n");
+                System.out.println(" → Entrada no válida\n");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
