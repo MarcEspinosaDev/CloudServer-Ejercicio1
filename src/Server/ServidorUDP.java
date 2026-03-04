@@ -25,8 +25,9 @@ public class ServidorUDP{
             }
             actuales++;
             System.out.println("PETICIONES ATENDIDAS: " + actuales);
-            HiloServidorUDP hilo = new HiloServidorUDP(socket, paquete);
-            hilo.start();
+            HandlerServidorUDP handler = new HandlerServidorUDP(socket, paquete);
+            Thread thread = new Thread(handler);
+            thread.start();
         }
         System.out.println("Servidor finalizado...");
     }

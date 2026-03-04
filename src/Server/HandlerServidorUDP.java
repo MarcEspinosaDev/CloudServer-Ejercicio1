@@ -3,11 +3,11 @@ package Server;
 import java.io.*;
 import java.net.*;
 
-public class HiloServidorUDP extends Thread {
+public class HandlerServidorUDP implements Runnable {
     DatagramSocket socket;
     DatagramPacket paquete;
 
-    public HiloServidorUDP(DatagramSocket socket, DatagramPacket paquete) {
+    public HandlerServidorUDP(DatagramSocket socket, DatagramPacket paquete) {
         this.socket = socket;
         this.paquete = paquete;
     }
@@ -27,7 +27,6 @@ public class HiloServidorUDP extends Thread {
             DatagramPacket paqueteRespuesta = new DatagramPacket(
                     respuesta, respuesta.length, direccionCliente, puertoCliente);
             socket.send(paqueteRespuesta);
-
         } catch (NumberFormatException e) {
             try {
                 String error = "ERROR: introduce un número entero positivo";
