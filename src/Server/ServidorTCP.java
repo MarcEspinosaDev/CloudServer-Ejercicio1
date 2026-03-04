@@ -6,11 +6,8 @@ import java.net.*;
 public class ServidorTCP{
     static ServerSocket servidor;
     static final int PUERTO = 44444;
-    static int ACTUALES = 0;
-<<<<<<< HEAD
-=======
-    static int ACIERTOS = 0;
->>>>>>> da9b478 (syncronized)
+    static int actuales = 0;
+    static int aciertos = 0;
 
     public static void main(String args[]) throws IOException {
         servidor = new ServerSocket(PUERTO);
@@ -20,9 +17,9 @@ public class ServidorTCP{
         while(true) {
             try {
                 Socket s = servidor.accept();
-                ACTUALES ++;
+                actuales ++;
                 System.out.println("Cliente conectado " +s.getInetAddress().getHostAddress()+
-                        ", Conexiones activas: " +ACTUALES);
+                        ", Conexiones activas: " +actuales);
                 HiloServidorTCP hilo = new HiloServidorTCP(s);
                 hilo.start();
             } catch (SocketException se) {

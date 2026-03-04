@@ -13,11 +13,6 @@ public class HiloServidorTCP extends Thread {
     private Random random;
     private String direccionCliente;
 
-<<<<<<< HEAD
-=======
-    //private int aciertos;
-
->>>>>>> da9b478 (syncronized)
     public HiloServidorTCP(Socket s) {
         socket = s;
         random = new Random();
@@ -34,7 +29,7 @@ public class HiloServidorTCP extends Thread {
 
     public void run() {
         System.out.println("NUMERO DE CONEXIONES ACTUALES: "
-                + ServidorTCP.ACTUALES);
+                + ServidorTCP.actuales);
         try{
             fsalida.writeUTF("¡Bienvenido al juego Adivina el Número!");
             fsalida.writeUTF("Adivina un número entre 1 y 100");
@@ -51,14 +46,14 @@ public class HiloServidorTCP extends Thread {
                 cadena = fentrada.readUTF();
 
                 if (cadena.trim().equals("*")) {
-                    ServidorTCP.ACTUALES--;
+                    ServidorTCP.actuales--;
                     System.out.println("NUMERO DE CONEXIONES ACTUALES: "
-                                    + ServidorTCP.ACTUALES);
+                            + ServidorTCP.actuales);
                     break;
                 }
                 if (!procesarIntento(cadena)) {
-                    ServidorTCP.ACTUALES--;
-                    System.out.println("NUMERO DE CONEXIONES ACTUALES: " + ServidorTCP.ACTUALES);
+                    ServidorTCP.actuales--;
+                    System.out.println("NUMERO DE CONEXIONES ACTUALES: " + ServidorTCP.actuales);
                     break;
                 }
             } catch (Exception e) {
@@ -80,10 +75,7 @@ public class HiloServidorTCP extends Thread {
                 fsalida.writeUTF("El número es menor");
             } else {
                 fsalida.writeUTF("¡Número correcto! Era el " + numeroSecreto);
-<<<<<<< HEAD
-=======
-                aciertos();
->>>>>>> da9b478 (syncronized)
+                sumarAciertos();
                 fsalida.writeUTF("¿Quieres jugar otra vez? (si/no)");
                 String respuesta = fentrada.readUTF().trim().toLowerCase();
                 if (respuesta.equals("si")) {
@@ -108,13 +100,10 @@ public class HiloServidorTCP extends Thread {
         }
         return true;
     }
-<<<<<<< HEAD
-=======
 
     // Genarar un numero contador para saber cuantos aciertos hay
-    public synchronized void aciertos() throws IOException {
-        ServidorTCP.ACTUALES++;
-        fsalida.writeUTF("Cantidad de aciertos: "+ ServidorTCP.ACTUALES + "\n");
+    public synchronized void sumarAciertos() throws IOException {
+        ServidorTCP.aciertos++;
+        fsalida.writeUTF("Cantidad de aciertos: "+ ServidorTCP.aciertos + "\n");
     }
->>>>>>> da9b478 (syncronized)
 }
