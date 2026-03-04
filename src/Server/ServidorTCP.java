@@ -7,6 +7,10 @@ public class ServidorTCP{
     static ServerSocket servidor;
     static final int PUERTO = 44444;
     static int ACTUALES = 0;
+<<<<<<< HEAD
+=======
+    static int ACIERTOS = 0;
+>>>>>>> da9b478 (syncronized)
 
     public static void main(String args[]) throws IOException {
         servidor = new ServerSocket(PUERTO);
